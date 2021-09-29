@@ -2,6 +2,7 @@ package com.myapp.users.PhotoAppUsers.ui.Controller;
 
 import com.myapp.users.PhotoAppUsers.Model.Request.CreateUserRequest;
 import com.myapp.users.PhotoAppUsers.Model.Response.CreateUserResponse;
+import com.myapp.users.PhotoAppUsers.Model.Response.UserResponseModel;
 import com.myapp.users.PhotoAppUsers.service.UserService;
 import com.myapp.users.PhotoAppUsers.shared.UserDto;
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,22 @@ public class UserController {
     @GetMapping(path = "/status/check")
     public String status(){
 
-        return "working on port " + env.getProperty("local.server.port");
+        return "working on port " + env.getProperty("local.server.port") + "With token expiration date = " + env.getProperty("token.expiration_date");
+    }
+
+
+    @GetMapping( path = "/{userId}",
+            produces =
+                    { MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<UserResponseModel> getUser( @PathVariable  String userId){
+
+        UserDto userDto = userService.getUserById(userId);
+        UserResponseModel returnValue = new ModelMapper().map(userDto,UserResponseModel.class);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
     @PostMapping(
