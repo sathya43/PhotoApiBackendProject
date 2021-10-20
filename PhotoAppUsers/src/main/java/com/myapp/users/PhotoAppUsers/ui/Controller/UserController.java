@@ -3,6 +3,7 @@ package com.myapp.users.PhotoAppUsers.ui.Controller;
 import com.myapp.users.PhotoAppUsers.Model.Request.CreateUserRequest;
 import com.myapp.users.PhotoAppUsers.Model.Response.CreateUserResponse;
 import com.myapp.users.PhotoAppUsers.Model.Response.UserResponseModel;
+import com.myapp.users.PhotoAppUsers.data.AkhilClient;
 import com.myapp.users.PhotoAppUsers.service.UserService;
 import com.myapp.users.PhotoAppUsers.shared.UserDto;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,14 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+//    @Autowired
+//    private AkhilClient ak;
+//
+//    @GetMapping("/akhil")
+//    public String getAkhil(){
+//        return ak.getUser();
+//    }
 
     @GetMapping(path = "/status/check")
     public String status(){
